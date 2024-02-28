@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-in</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        h1 {
+            color: blue;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .trigger {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign-in to access the website</h1>
+    <form action="">
+        <input type="text" placeholder="enter username">
+        <span class="trigger">Username can't be blank</span>
+        <input type="text" placeholder="enter password">
+        <span class="trigger">Password can't be blank</span>
+        <input type="submit" value="Sign in">
+        <span class="trigger">Username & Password are not matching.</span>
+    </form>
+    <script>
+        var a = localStorage.getItem('users');
+        var trig = document.getElementsByTagName('span');
+        var usersdata = JSON.parse(a);
+        var f = document.forms;
+        f[0].addEventListener('submit',function (e)
+        {
+           e.preventDefault();
+           var obj = {
+            username:e.target[0].value,
+            password:e.target[1].value
+           }
+          
+           if (obj.username.length==0)
+             {
+                f[0][0].style.border = '2px solid red';
+                trig[0].style.display = 'inline';
+                trig[0].style.color = 'red';
+                window.close();
+                window.open('./signin.html',alert('username or password should not be blank'));
+                
+             }
+           if (obj.password.length==0)
+             {
+                f[0][1].style.border = '2px solid red';
+                trig[1].style.display = 'inline';
+                trig[1].style.color = 'red';
+             }
+             for (i=0;i<usersdata.length;i++)
+             {
+              if (obj.username==usersdata[i].username && obj.password==usersdata[i].password)
+              {
+                window.location.assign('https://rajuppela.github.io/BOM-Task2/');
+              }
+              else
+              {
+                trig[2].style.display = 'inline';
+                trig[2].style.color = 'red';
+              }
+             }
+        });
+    </script>
+</body>
+</html>

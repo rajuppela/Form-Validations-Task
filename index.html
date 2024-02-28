@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        h1 {
+            color: blue;
+        }
+        .trigger {
+            display: none;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form action="">
+        <input type="text" placeholder="username">
+        <span class="trigger">Username can't be blank</span>
+        <span class="trigger">Username already taken.try with different username.</span>
+        <input type="text" placeholder="password">
+        <span class="trigger">Password can't be blank</span>
+        <input type="text" placeholder="example@mail.com">
+        <span class="trigger">Email-id can't be blank</span>
+        <input type="tel" placeholder="phone number">
+        <span class="trigger">Phone number can't be blank</span>
+        <input type="submit">
+    </form>
+    <p>Proceed to sign-in page<button>>></button></p>
+    <script>
+        var f = document.forms;
+        var trig = document.getElementsByTagName('span');
+        var btn = document.getElementsByTagName('button');
+        var arr = [];
+        f[0].addEventListener('submit',function (e)
+        {
+           e.preventDefault();
+           var obj = {
+            username:e.target[0].value,
+            password:e.target[1].value,
+            email:e.target[2].value,
+            phone:e.target[3].value
+           }
+             if (obj.username.length==0)
+             {
+                f[0][0].style.border = '2px solid red';
+                trig[0].style.display = 'inline';
+                trig[0].style.color = 'red';
+             }
+             if (obj.password.length==0)
+             {
+                f[0][1].style.border = '2px solid red';
+                trig[2].style.display = 'inline';
+                trig[2].style.color = 'red';
+             }
+             if (obj.email.length==0)
+             {
+                f[0][2].style.border = '2px solid red';
+                trig[3].style.display = 'inline';
+                trig[3].style.color = 'red';
+             }
+             if (obj.phone.length==0)
+             {
+                f[0][3].style.border = '2px solid red';
+                trig[4].style.display = 'inline';
+                trig[4].style.color = 'red';
+             }
+             for (i=0;i<arr.length;i++)
+             {
+              if (obj.username==arr[i].username)
+              {
+                f[0][0].style.border = '2px solid purple';
+                trig[1].style.display = 'inline';
+                trig[1].style.color = 'purple';
+              }
+             }
+           arr.push(obj);
+           localStorage.setItem('users',JSON.stringify(arr));
+           console.log();
+           e.target[0].value='';
+           e.target[1].value='';
+           e.target[2].value='';
+           e.target[3].value='';
+        });
+        btn[0].style.backgroundColor = 'green';
+        btn[0].style.color = 'white';
+        btn[0].addEventListener('click',cb);
+        function cb()
+        {
+            window.open('./signin.html')
+        }
+    </script>
+</body>
+</html>
